@@ -9,6 +9,9 @@ import Profile from './componenets/profile';
 import Login from './componenets/login';
 import Trash from './componenets/corbeille';
 import Archive from './componenets/archive';
+import Register from './componenets/Register';
+import Splash from './componenets/Splash';
+import ForgotPassword from './componenets/ForgotPassword';
 
 
 const Stack = createStackNavigator();
@@ -19,7 +22,19 @@ export default function App() {
     <NavigationContainer>
       
     <Stack.Navigator >
+   
+      <Stack.Screen name='Register' component={Register} options={{ headerShown: false }}  />
       <Stack.Screen name='Login' component={Login} options={{ headerShown: false }}  />
+      <Stack.Screen
+            name="ForgotPassword"
+            component={ForgotPassword}
+            options={{ headerShown: false, animation: "slide_from_right" }}
+          /> 
+          <Stack.Screen
+            name="Splash"
+            component={Splash}
+            options={{ headerShown: false }}
+          />
       <Stack.Screen name="Home"  options={{ headerShown: false }} component={Home} />
       <Stack.Screen name="Settings"  options={{ headerShown: false }} component={Settings} />
       <Stack.Screen name="Profile"  options={{ headerShown: false }} component={Profile} />

@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef  } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, TextInput,TouchableWithoutFeedback, Animated, FlatList, RefreshControl,Modal } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, TextInput ,TouchableWithoutFeedback, Animated, FlatList, RefreshControl,Modal } from 'react-native';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -23,8 +23,13 @@ const Home = ({ navigation }) => {
    const [archivedNotes, setArchivedNotes] = useState([]); // Etat pour archiver la note
 
 
-
-
+ 
+  
+  const handlePress = () => {
+    setDropdownVisible(false);
+    navigation.navigate('Home');
+  };
+  
   const toggleListMode = () => {
     setListMode((prevMode) => (prevMode === 'grid' ? 'list' : 'grid'));
   };
@@ -89,7 +94,7 @@ const Home = ({ navigation }) => {
   const resetForm = () => {
     setNewNoteTitle('');
     setNewNoteDescription('');
-    setIsArchived(false);
+    setIsArchived(false); 
     setIsAddingToPlaylist(false);
   };
   
@@ -228,7 +233,7 @@ const handleCancelEdit = () => {
 
   return ( 
   <TouchableWithoutFeedback onPress={closeDropdownMenu}>
-    <View style={styles.container}>
+    <View style={styles.container} >
       <View style={styles.navbarsearch}>
         <TextInput
           style={styles.searchInput}
@@ -245,8 +250,9 @@ const handleCancelEdit = () => {
         <TouchableOpacity style={[styles.navItem]} onPress={toggleDropdownMenu}>
           <FontAwesomeIcon name="bars" size={24} color="#ffffff" />
         </TouchableOpacity>
+        {isDropdownVisible &&  (
         <Animated.View style={[styles.dropdownMenu, { transform: [{ translateX: slideAnim }] }]}>
-          <TouchableOpacity style={styles.dropdownText} onPress={() => navigation.navigate('Home')}>
+          <TouchableOpacity style={styles.dropdownText} onPress={handlePress}>
             <Text style={styles.dropdownText}>
               <FontAwesomeIcon name="comment" size={24} color="#000" /> Notes
             </Text>
@@ -337,7 +343,7 @@ const handleCancelEdit = () => {
 
         </Animated.View>
 
-        
+        )}
         <TouchableOpacity style={styles.navItem} onPress={toggleListMode}>
           <FontAwesomeIcon name={listMode === 'grid' ? 'list' : 'th'} size={24} color="#ffffff" />
         </TouchableOpacity>
@@ -548,11 +554,11 @@ const styles = StyleSheet.create({
   },
   dropdownMenu: {
     position: 'absolute',
-    top: 50,
+    top: -50,
     left: 0,
     width: 250,
     backgroundColor: '#ffffff',
-    borderRadius: 5,
+    borderRadius: 1,
     padding: 10,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
